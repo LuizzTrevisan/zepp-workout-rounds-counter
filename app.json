@@ -1,0 +1,71 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1067370,
+    "appName": "Workout Rounds Count",
+    "appType": "app",
+    "extType": "workout",
+    "version": {
+      "code": 1,
+      "name": "1.0.3"
+    },
+    "icon": "icon.png",
+    "vender": "huami",
+    "description": ""
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "3.6",
+      "target": "3.6",
+      "minVersion": "3.6"
+    }
+  },
+  "targets": {
+    "common": {
+      "module": {
+        "data-widget": {
+          "widgets": [
+            {
+              "path": "data-widget/common/index",
+              "name": "Workout Rounds Coun",
+              "icon": "icon.png",
+              "window": {
+                "isPinned": 1
+              },
+              "runtime": {
+                "ability": [
+                  {
+                    "type": 1,
+                    "subType": []
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        },
+        {
+          "st": "s"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "pt-BR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    }
+  },
+  "defaultLanguage": "pt-BR"
+}
