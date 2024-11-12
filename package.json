@@ -1,9 +1,9 @@
 {
   "name": "workout-ronds-count",
-  "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
+    "build": "zeus build",
     "start": "zeus dev",
     "preview-real-device": "zeus preview",
     "test": "echo \"Error: no test specified\" && exit 1"

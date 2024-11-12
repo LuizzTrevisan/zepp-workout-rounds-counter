@@ -1,24 +1,12 @@
-import {align, createWidget, deleteWidget, prop, px, text_style, widget} from '@zos/ui'
+import {align, createWidget, prop, px, text_style, widget} from '@zos/ui'
 
 let dataWidget;
 let repCount;
 
 function setRepCount(value) {
-    if (repCount) {
-        deleteWidget(repCount);
-    }
-    repCount = createWidget(widget.TEXT, {
-        x: px(0),
-        y: px(82),
-        w: px(480),
-        h: px(85),
-        color: 0xffffff,
-        text_size: px(30),
-        align_h: align.CENTER_H,
-        align_v: align.CENTER_V,
-        text_style: text_style.NONE,
+    repCount.setProperty(prop.MORE, {
         text: 'Rounds: ' + value
-    })
+    });
 }
 
 DataWidget({
@@ -32,6 +20,17 @@ DataWidget({
         //   src: 'bg.png'
         // })
         dataWidget = this;
+        repCount = createWidget(widget.TEXT, {
+            x: px(0),
+            y: px(82),
+            w: px(480),
+            h: px(85),
+            color: 0xffffff,
+            text_size: px(30),
+            align_h: align.CENTER_H,
+            align_v: align.CENTER_V,
+            text_style: text_style.NONE,
+        })
         setRepCount(0);
 
         createWidget(widget.BUTTON, {
