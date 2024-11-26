@@ -1,12 +1,72 @@
 import {align, createWidget, prop, px, text_style, widget} from '@zos/ui'
+import {getText} from "@zos/i18n";
+import {createModal} from "@zos/interaction";
+
 
 let dataWidget;
 let repCount;
+let startButton;
+let timer;
+let startDate;
+let interval;
+let elapsed;
+let history = {};
 
-function setRepCount(value) {
+function padDigits(dig, num) {
+    return num.toString().padStart(dig, "0");
+}
+
+function formatElapsedTime() {
+    if (!elapsed) return;
+    return padDigits(2, elapsed.getHours()) + ":" + //
+        padDigits(2, elapsed.getMinutes()) + ":" + //
+        padDigits(2, elapsed.getSeconds()) + "." + //
+        padDigits(3, elapsed.getMilliseconds());
+}
+
+function incRepCount(value) {
+    startDate = new Date();
+    history[value - 1] = formatElapsedTime();
+
+    if (value === 1) {
+        interval = setInterval(() => {
+            elapsed = new Date(new Date() - startDate);
+            timer.setProperty(prop.MORE, {
+                text: formatElapsedTime()
+            });
+        }, 80);
+        startButton.setProperty(prop.MORE, {
+            x: (px(480) - px(400)) / 2,
+            y: px(240),
+            w: px(400),
+            h: px(96),
+            text: getText("adicionar")
+        });
+    }
+
+    setRepCountText(value);
+}
+
+function setRepCountText(value) {
+    dataWidget.state.repcount = value;
     repCount.setProperty(prop.MORE, {
-        text: 'Rounds: ' + value
+        text: getText("rounds") + ': ' + value
     });
+}
+
+function decRepCount(value) {
+    if (value <= 0) {
+        clearInterval(interval)
+        value = 0;
+        startButton.setProperty(prop.MORE, {
+            x: (px(480) - px(400)) / 2,
+            y: px(240),
+            w: px(400),
+            h: px(96),
+            text: getText("iniciar"),
+        });
+    }
+    setRepCountText(value);
 }
 
 DataWidget({
@@ -20,7 +80,19 @@ DataWidget({
         //   src: 'bg.png'
         // })
         dataWidget = this;
-        repCount = createWidget(widget.TEXT, {
+
+        const viewContainer = createWidget(widget.VIEW_CONTAINER, {
+            x: px(0),
+            y: px(0),
+            w: px(480),
+            h: px(480),
+            scroll_frame_func(info) {
+            },
+            scroll_complete_func(info) {
+            }
+        })
+
+        repCount = viewContainer.createWidget(widget.TEXT, {
             x: px(0),
             y: px(82),
             w: px(480),
@@ -31,148 +103,94 @@ DataWidget({
             align_v: align.CENTER_V,
             text_style: text_style.NONE,
         })
-        setRepCount(0);
 
-        createWidget(widget.BUTTON, {
+        timer = viewContainer.createWidget(widget.TEXT, {
+            x: px(0),
+            y: px(82),
+            w: px(480),
+            h: px(156),
+            color: 0xffffff,
+            text_size: px(16),
+            text: '00:00:00.000',
+            align_h: align.CENTER_H,
+            align_v: align.CENTER_V,
+            text_style: text_style.NONE,
+        })
+
+        startButton = viewContainer.createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
             y: px(240),
             w: px(400),
-            h: px(100),
+            h: px(96),
+            radius: px(48),
+            normal_color: 0x444444,
+            press_color: 0x222222,
+            text: getText("iniciar"),
+            click_func: (button_widget) => {
+                incRepCount(++dataWidget.state.repcount)
+            }
+        })
+        viewContainer.createWidget(widget.BUTTON, {
+            x: (px(480) - px(400)) / 2,
+            y: px(350),
+            w: px(400),
+            h: px(72),
+            radius: px(36),
+            normal_color: 0x444444,
+            press_color: 0x222222,
+            text: getText("remover"),
+            click_func: (button_widget) => {
+                decRepCount(--dataWidget.state.repcount)
+            }
+        })
+
+        viewContainer.createWidget(widget.BUTTON, {
+            x: (px(480) - px(400)) / 2,
+            y: px(470),
+            w: px(400),
+            h: px(64),
             radius: px(32),
             normal_color: 0x444444,
             press_color: 0x222222,
-            text: 'Adicionar',
+            text: "⚙️️",
+            text_size: px(36),
             click_func: (button_widget) => {
-                setRepCount(++dataWidget.state.repcount)
+                const dialog = createModal({
+                    content: getText('embreve'),
+                    show: true,
+                    capsuleButton: ['configure', 'close'],
+                    onClick: (keyObj) => {
+                        dialog.show(false)
+                        console.log('type', keyObj.type)
+                        if (keyObj.type === 10) {
+                            setTimeout(() => {
+                                const d2 = createModal({
+                                    content: JSON.stringify(history),
+                                    capsuleButton: ['close'],
+                                    show: true,
+                                    onClick: (keyObj) => d2.show(false)
+                                })
+                            }, 1)
+                        }
+                    }
+                });
             }
-        })
-        createWidget(widget.BUTTON, {
-            x: (px(480) - px(400)) / 2,
-            y: px(360),
-            w: px(400),
-            h: px(80),
-            radius: px(24),
-            normal_color: 0x444444,
-            press_color: 0x222222,
-            text: 'Remover',
-            click_func: (button_widget) => {
-                setRepCount(--dataWidget.state.repcount)
-            }
-        })
-        // // Calorie
-        // const widgetOptionalArray1 = [sport_data.CONSUME]
-        // createWidget(widget.SPORT_DATA, {
-        //   edit_id: 1,
-        //   x: 60,
-        //   y: 310,
-        //   w: 104,
-        //   h: 120,
-        //   category: edit_widget_group_type.SPORTS,
-        //   default_type: sport_data.CONSUME,
-        //   optional_types: widgetOptionalArray1,
-        //   count: widgetOptionalArray1.length,
-        //   rect_visible: false,
-        //   line_color: 0x000000,
-        //   text_size: 50,
-        //   text_color: 0xffffff,
-        //   text_x: 0,
-        //   text_y: 0,
-        //   text_w: 170,
-        //   text_h: 85,
-        //   sub_text_visible: true,
-        //   sub_text_size: 24,
-        //   sub_text_color: 0x999999,
-        //   sub_text_x: 35,
-        //   sub_text_y: 80,
-        //   sub_text_w: 100,
-        //   sub_text_h: 30
-        // })
-        //
-        // // Distance
-        // const widgetOptionalArray2 = [sport_data.DISTANCE_TOTAL]
-        // createWidget(widget.SPORT_DATA, {
-        //   edit_id: 2,
-        //   x: 195,
-        //   y: 310,
-        //   w: 104,
-        //   h: 120,
-        //   category: edit_widget_group_type.SPORTS,
-        //   default_type: sport_data.DISTANCE_TOTAL,
-        //   optional_types: widgetOptionalArray2,
-        //   count: widgetOptionalArray2.length,
-        //   line_color: 0x000000,
-        //   text_size: 50,
-        //   rect_visible: false,
-        //   text_color: 0xffffff,
-        //   text_x: 0,
-        //   text_y: 0,
-        //   text_w: 210,
-        //   text_h: 85,
-        //   sub_text_visible: true,
-        //   sub_text_size: 24,
-        //   sub_text_color: 0x999999,
-        //   sub_text_x: 60,
-        //   sub_text_y: 80,
-        //   sub_text_w: 100,
-        //   sub_text_h: 30
-        // })
-        //
-        // // Pace
-        // const widgetOptionalArray3 = [sport_data.PACE]
-        // createWidget(widget.SPORT_DATA, {
-        //   edit_id: 3,
-        //   x: -5,
-        //   y: 170,
-        //   w: 168,
-        //   h: 135,
-        //   category: edit_widget_group_type.SPORTS,
-        //   default_type: sport_data.PACE,
-        //   optional_types: widgetOptionalArray3,
-        //   count: widgetOptionalArray3.length,
-        //   line_width: 0,
-        //   rect_visible: false,
-        //   line_color: 0xc1e002,
-        //   text_size: 90,
-        //   text_color: 0x000000,
-        //   text_x: 0,
-        //   text_y: 0,
-        //   text_w: 300,
-        //   text_h: 100,
-        //   sub_text_visible: true,
-        //   sub_text_size: 40,
-        //   sub_text_color: 0xffffff,
-        //   sub_text_x: 330,
-        //   sub_text_y: 15,
-        //   sub_text_w: 100,
-        //   sub_text_h: 100
-        // })
-        //
-        // // Heartrate
-        // const widgetOptionalArray = [sport_data.HR]
-        // createWidget(widget.SPORT_DATA, {
-        //   edit_id: 4,
-        //   x: 160,
-        //   y: 82,
-        //   w: 89,
-        //   h: 84,
-        //   category: edit_widget_group_type.SPORTS,
-        //   default_type: sport_data.HR,
-        //   optional_types: widgetOptionalArray,
-        //   count: widgetOptionalArray.length,
-        //   rect_visible: false,
-        //   line_color: 0x000000,
-        //   text_size: 50,
-        //   text_color: 0xffffff,
-        //   text_x: 0,
-        //   text_y: 0,
-        //   text_w: 130,
-        //   text_h: 85,
-        //   sub_text_visible: false
-        // })
+        });
+        setRepCountText(0);
     },
 
     build() {
-        this.init()
+        this.init();
+
+        // onWristMotion({
+        //     callback: (data = {}) => {
+        //         const {motion} = data
+        //         this.state.logger.log('motion', motion)
+        //         // text.setProperty(prop.MORE, {
+        //         //     text: `MOTION:${motion}`
+        //         // })
+        //     }
+        // })
     },
     onInit() {
     },

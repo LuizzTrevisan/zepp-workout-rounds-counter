@@ -1,0 +1,15 @@
+
+msgid "rounds"
+msgstr "Rounds"
+
+msgid "adicionar"
+msgstr "Adicionar"
+
+msgid "remover"
+msgstr "Remover"
+
+msgid "embreve"
+msgstr 'Em Breve'
+
+msgid "iniciar"
+msgstr 'Iniciar'

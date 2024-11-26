@@ -6,11 +6,11 @@
     "appType": "app",
     "extType": "workout",
     "version": {
-      "code": 103,
-      "name": "1.0.3"
+      "code": 104,
+      "name": "1.0.4"
     },
     "icon": "icon.png",
-    "vender": "huami",
+    "vender": "Luiz F. Trevisan",
     "description": ""
   },
   "permissions": [],
@@ -57,7 +57,304 @@
     }
   },
   "i18n": {
+    "zh-CN": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "ar-EG": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "ca-ES": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "cs": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "da-DK": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "de-DE": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "el": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "en-US": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "es-ES": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "fi": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "fr-FR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "he": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "hi": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "hu-HU": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "id-ID": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "it-IT": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "ja-JP": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "ko-KR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "mr": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "nb-NO": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "nl": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "pl-PL": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "pt": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
     "pt-BR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "ro": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "ru-RU": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "sk": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "sr": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "sv-SE": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "th-TH": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "tr-TR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "uk": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "vi": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Workout Rounds Count"
+          }
+        ]
+      }
+    },
+    "zh-TW": {
       "data-widget": {
         "widgets": [
           {
@@ -67,5 +364,5 @@
       }
     }
   },
-  "defaultLanguage": "pt-BR"
+  "defaultLanguage": "en-US"
 }

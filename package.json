@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@zeppos/device-types": "^3.0.0"
+    "@zeppos/device-types": "^3.0.0",
+    "@zeppos/zml": "^0.0.33"
   }
 }
