@@ -16,23 +16,25 @@ function padDigits(dig, num) {
     return num.toString().padStart(dig, "0");
 }
 
-function formatElapsedTime() {
-    if (!elapsed) return;
-    return padDigits(2, elapsed.getHours()) + ":" + //
-        padDigits(2, elapsed.getMinutes()) + ":" + //
-        padDigits(2, elapsed.getSeconds()) + "." + //
-        padDigits(3, elapsed.getMilliseconds());
+function formatTime(time) {
+    if (!time) {
+        return "";
+    }
+    return padDigits(2, time.getHours()) + ":" + //
+        padDigits(2, time.getMinutes()) + ":" + //
+        padDigits(2, time.getSeconds()) + "." + //
+        padDigits(3, time.getMilliseconds());
 }
 
 function incRepCount(value) {
     startDate = new Date();
-    history[value - 1] = formatElapsedTime();
+    history[value - 1] = formatTime(elapsed);
 
     if (value === 1) {
         interval = setInterval(() => {
             elapsed = new Date(new Date() - startDate);
             timer.setProperty(prop.MORE, {
-                text: formatElapsedTime()
+                text: formatTime(elapsed)
             });
         }, 80);
         startButton.setProperty(prop.MORE, {
@@ -81,18 +83,7 @@ DataWidget({
         // })
         dataWidget = this;
 
-        const viewContainer = createWidget(widget.VIEW_CONTAINER, {
-            x: px(0),
-            y: px(0),
-            w: px(480),
-            h: px(480),
-            scroll_frame_func(info) {
-            },
-            scroll_complete_func(info) {
-            }
-        })
-
-        repCount = viewContainer.createWidget(widget.TEXT, {
+        repCount = createWidget(widget.TEXT, {
             x: px(0),
             y: px(82),
             w: px(480),
@@ -104,7 +95,7 @@ DataWidget({
             text_style: text_style.NONE,
         })
 
-        timer = viewContainer.createWidget(widget.TEXT, {
+        timer = createWidget(widget.TEXT, {
             x: px(0),
             y: px(82),
             w: px(480),
@@ -117,7 +108,7 @@ DataWidget({
             text_style: text_style.NONE,
         })
 
-        startButton = viewContainer.createWidget(widget.BUTTON, {
+        startButton = createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
             y: px(240),
             w: px(400),
@@ -130,7 +121,7 @@ DataWidget({
                 incRepCount(++dataWidget.state.repcount)
             }
         })
-        viewContainer.createWidget(widget.BUTTON, {
+        createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
             y: px(350),
             w: px(400),
@@ -144,7 +135,7 @@ DataWidget({
             }
         })
 
-        viewContainer.createWidget(widget.BUTTON, {
+        createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
             y: px(470),
             w: px(400),
@@ -153,25 +144,19 @@ DataWidget({
             normal_color: 0x444444,
             press_color: 0x222222,
             text: "⚙️️",
-            text_size: px(36),
+            text_size: px(32),
             click_func: (button_widget) => {
                 const dialog = createModal({
-                    content: getText('embreve'),
+                    content: Object.entries(history).map(value => {
+                        if (value[0] > 0) {
+                            return value[0] + ' : ' + value[1]
+                        }
+                    }).filter(value => value).join('\n'),
                     show: true,
-                    capsuleButton: ['configure', 'close'],
+                    capsuleButton: ['close'],
                     onClick: (keyObj) => {
                         dialog.show(false)
                         console.log('type', keyObj.type)
-                        if (keyObj.type === 10) {
-                            setTimeout(() => {
-                                const d2 = createModal({
-                                    content: JSON.stringify(history),
-                                    capsuleButton: ['close'],
-                                    show: true,
-                                    onClick: (keyObj) => d2.show(false)
-                                })
-                            }, 1)
-                        }
                     }
                 });
             }
