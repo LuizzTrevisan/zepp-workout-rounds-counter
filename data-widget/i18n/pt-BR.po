@@ -13,3 +13,6 @@ msgstr 'Em Breve'
 
 msgid "iniciar"
 msgstr 'Iniciar'
+
+msgid "parar"
+msgstr 'Parar'

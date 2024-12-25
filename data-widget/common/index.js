@@ -1,4 +1,5 @@
-import {align, createWidget, prop, px, text_style, widget} from '@zos/ui'
+import {align, createWidget, prop, text_style, widget} from '@zos/ui'
+import {px} from '@zos/utils'
 import {getText} from "@zos/i18n";
 import {createModal} from "@zos/interaction";
 
@@ -39,7 +40,7 @@ function incRepCount(value) {
         }, 80);
         startButton.setProperty(prop.MORE, {
             x: (px(480) - px(400)) / 2,
-            y: px(240),
+            y: px(180),
             w: px(400),
             h: px(96),
             text: getText("adicionar")
@@ -62,7 +63,7 @@ function decRepCount(value) {
         value = 0;
         startButton.setProperty(prop.MORE, {
             x: (px(480) - px(400)) / 2,
-            y: px(240),
+            y: px(180),
             w: px(400),
             h: px(96),
             text: getText("iniciar"),
@@ -85,9 +86,9 @@ DataWidget({
 
         repCount = createWidget(widget.TEXT, {
             x: px(0),
-            y: px(82),
+            y: px(64),
             w: px(480),
-            h: px(85),
+            h: px(30),
             color: 0xffffff,
             text_size: px(30),
             align_h: align.CENTER_H,
@@ -97,9 +98,9 @@ DataWidget({
 
         timer = createWidget(widget.TEXT, {
             x: px(0),
-            y: px(82),
+            y: px(102),
             w: px(480),
-            h: px(156),
+            h: px(16),
             color: 0xffffff,
             text_size: px(16),
             text: '00:00:00.000',
@@ -110,26 +111,28 @@ DataWidget({
 
         startButton = createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
-            y: px(240),
+            y: px(180),
             w: px(400),
             h: px(96),
             radius: px(48),
             normal_color: 0x444444,
             press_color: 0x222222,
             text: getText("iniciar"),
+            text_size: px(24),
             click_func: (button_widget) => {
                 incRepCount(++dataWidget.state.repcount)
             }
         })
         createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
-            y: px(350),
+            y: px(290),
             w: px(400),
             h: px(72),
             radius: px(36),
             normal_color: 0x444444,
             press_color: 0x222222,
             text: getText("remover"),
+            text_size: px(24),
             click_func: (button_widget) => {
                 decRepCount(--dataWidget.state.repcount)
             }
@@ -137,15 +140,17 @@ DataWidget({
 
         createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
-            y: px(470),
+            y: px(400),
             w: px(400),
-            h: px(64),
-            radius: px(32),
+            h: px(78),
+            radius: px(39),
             normal_color: 0x444444,
             press_color: 0x222222,
-            text: "⚙️️",
-            text_size: px(32),
+            text: getText('parar'),
+            text_size: px(24),
             click_func: (button_widget) => {
+                incRepCount(++dataWidget.state.repcount)
+
                 const dialog = createModal({
                     content: Object.entries(history).map(value => {
                         if (value[0] > 0) {
@@ -166,17 +171,8 @@ DataWidget({
 
     build() {
         this.init();
-
-        // onWristMotion({
-        //     callback: (data = {}) => {
-        //         const {motion} = data
-        //         this.state.logger.log('motion', motion)
-        //         // text.setProperty(prop.MORE, {
-        //         //     text: `MOTION:${motion}`
-        //         // })
-        //     }
-        // })
     },
+
     onInit() {
     },
 

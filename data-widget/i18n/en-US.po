@@ -13,3 +13,6 @@ msgstr 'Coming soon'
 
 msgid "iniciar"
 msgstr 'Start'
+
+msgid "parar"
+msgstr 'Stop'

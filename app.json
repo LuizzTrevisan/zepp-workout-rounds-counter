@@ -6,8 +6,8 @@
     "appType": "app",
     "extType": "workout",
     "version": {
-      "code": 104,
-      "name": "1.0.4"
+      "code": 105,
+      "name": "1.0.5"
     },
     "icon": "icon.png",
     "vender": "Luiz F. Trevisan",
