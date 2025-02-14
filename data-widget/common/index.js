@@ -146,10 +146,10 @@ DataWidget({
             radius: px(39),
             normal_color: 0x444444,
             press_color: 0x222222,
-            text: getText('parar'),
+            text: getText('view'),
             text_size: px(24),
             click_func: (button_widget) => {
-                incRepCount(++dataWidget.state.repcount)
+                // incRepCount(++dataWidget.state.repcount)
 
                 const dialog = createModal({
                     content: Object.entries(history).map(value => {

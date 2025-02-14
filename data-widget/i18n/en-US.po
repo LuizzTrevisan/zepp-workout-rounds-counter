@@ -8,11 +8,8 @@ msgstr "Add"
 msgid "remover"
 msgstr "Subtract"
 
-msgid "embreve"
-msgstr 'Coming soon'
-
 msgid "iniciar"
 msgstr 'Start'
 
-msgid "parar"
-msgstr 'Stop'
+msgid "view"
+msgstr 'View'
