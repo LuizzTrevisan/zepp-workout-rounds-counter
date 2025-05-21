@@ -1,17 +1,9 @@
 import {align, createWidget, prop, text_style, widget} from '@zos/ui'
 import {px} from '@zos/utils'
 import {getText} from "@zos/i18n";
-import {createModal} from "@zos/interaction";
-
 
 let dataWidget;
 let repCount;
-let startButton;
-let timer;
-let startDate;
-let interval;
-let elapsed;
-let history = {};
 
 function padDigits(dig, num) {
     return num.toString().padStart(dig, "0");
@@ -28,46 +20,19 @@ function formatTime(time) {
 }
 
 function incRepCount(value) {
-    startDate = new Date();
-    history[value - 1] = formatTime(elapsed);
-
-    if (value === 1) {
-        interval = setInterval(() => {
-            elapsed = new Date(new Date() - startDate);
-            timer.setProperty(prop.MORE, {
-                text: formatTime(elapsed)
-            });
-        }, 80);
-        startButton.setProperty(prop.MORE, {
-            x: (px(480) - px(400)) / 2,
-            y: px(180),
-            w: px(400),
-            h: px(96),
-            text: getText("adicionar")
-        });
-    }
-
     setRepCountText(value);
 }
 
 function setRepCountText(value) {
     dataWidget.state.repcount = value;
     repCount.setProperty(prop.MORE, {
-        text: getText("rounds") + ': ' + value
+        text: value
     });
 }
 
 function decRepCount(value) {
     if (value <= 0) {
-        clearInterval(interval)
         value = 0;
-        startButton.setProperty(prop.MORE, {
-            x: (px(480) - px(400)) / 2,
-            y: px(180),
-            w: px(400),
-            h: px(96),
-            text: getText("iniciar"),
-        });
     }
     setRepCountText(value);
 }
@@ -88,37 +53,36 @@ DataWidget({
             x: px(0),
             y: px(64),
             w: px(480),
-            h: px(30),
+            h: px(96),
             color: 0xffffff,
-            text_size: px(30),
+            text_size: px(96),
             align_h: align.CENTER_H,
             align_v: align.CENTER_V,
             text_style: text_style.NONE,
         })
 
-        timer = createWidget(widget.TEXT, {
+        createWidget(widget.TEXT, {
             x: px(0),
-            y: px(102),
+            y: px(20),
             w: px(480),
-            h: px(16),
+            h: px(54),
             color: 0xffffff,
-            text_size: px(16),
-            text: '00:00:00.000',
+            text_size: px(22),
             align_h: align.CENTER_H,
             align_v: align.CENTER_V,
             text_style: text_style.NONE,
+            text: getText("rounds"),
         })
-
-        startButton = createWidget(widget.BUTTON, {
+        createWidget(widget.BUTTON, {
             x: (px(480) - px(400)) / 2,
             y: px(180),
             w: px(400),
             h: px(96),
-            radius: px(48),
+            radius: px(24),
             normal_color: 0x444444,
             press_color: 0x222222,
-            text: getText("iniciar"),
-            text_size: px(24),
+            text: getText("adicionar"),
+            text_size: px(36),
             click_func: (button_widget) => {
                 incRepCount(++dataWidget.state.repcount)
             }
@@ -127,45 +91,16 @@ DataWidget({
             x: (px(480) - px(400)) / 2,
             y: px(290),
             w: px(400),
-            h: px(72),
-            radius: px(36),
+            h: px(96),
+            radius: px(24),
             normal_color: 0x444444,
             press_color: 0x222222,
             text: getText("remover"),
-            text_size: px(24),
+            text_size: px(36),
             click_func: (button_widget) => {
                 decRepCount(--dataWidget.state.repcount)
             }
         })
-
-        createWidget(widget.BUTTON, {
-            x: (px(480) - px(400)) / 2,
-            y: px(400),
-            w: px(400),
-            h: px(78),
-            radius: px(39),
-            normal_color: 0x444444,
-            press_color: 0x222222,
-            text: getText('view'),
-            text_size: px(24),
-            click_func: (button_widget) => {
-                // incRepCount(++dataWidget.state.repcount)
-
-                const dialog = createModal({
-                    content: Object.entries(history).map(value => {
-                        if (value[0] > 0) {
-                            return value[0] + ' : ' + value[1]
-                        }
-                    }).filter(value => value).join('\n'),
-                    show: true,
-                    capsuleButton: ['close'],
-                    onClick: (keyObj) => {
-                        dialog.show(false)
-                        console.log('type', keyObj.type)
-                    }
-                });
-            }
-        });
         setRepCountText(0);
     },
 
@@ -174,8 +109,18 @@ DataWidget({
     },
 
     onInit() {
+        // console.log("onInit");
     },
 
     onDestroy() {
-    }
+        // console.log("onDestroy");
+    },
+
+    onResume() {
+        // console.log("onResume");
+    },
+
+    onPause() {
+        // console.log("onPause");
+    },
 })

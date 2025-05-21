@@ -5,13 +5,14 @@
   "scripts": {
     "build": "zeus build",
     "start": "zeus dev",
+    "bridge": "zeus bridge",
     "preview-real-device": "zeus preview",
     "test": "echo \"Error: no0 test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@zeppos/device-types": "^3.0.0",
-    "@zeppos/zml": "^0.0.33"
+    "@zeppos/device-types": "~3.0.0",
+    "@zeppos/zml": "~0.0.40"
   }
 }

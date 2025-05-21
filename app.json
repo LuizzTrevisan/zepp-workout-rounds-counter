@@ -6,19 +6,21 @@
     "appType": "app",
     "extType": "workout",
     "version": {
-      "code": 105,
-      "name": "1.0.5"
+      "code": 106,
+      "name": "1.0.6"
     },
     "icon": "icon.png",
     "vender": "Luiz F. Trevisan",
     "description": "Workout Rounds Count"
   },
-  "permissions": [],
+  "permissions": [
+    "data:user.hd.workout"
+  ],
   "runtime": {
     "apiVersion": {
-      "compatible": "3.6",
-      "target": "3.6",
-      "minVersion": "3.6"
+      "compatible": "4.0",
+      "target": "4.0",
+      "minVersion": "4.0"
     }
   },
   "targets": {
